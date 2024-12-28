@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cookie Interceptor</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 10px;
+      width: 300px;
+      font-size: 12px;
+    }
+
+    .container {
+      margin-bottom: 15px;
+    }
+
+    .code {
+      border-radius: 8px;
+      background-color: #eee;
+      font-family: monospace;
+      padding: 8px;
+      text-wrap: wrap;
+      overflow-x: auto;
+    }
+
+    .item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      column-gap: 4px;
+      margin-top: 4px;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 5px;
+    }
+
+    button {
+      cursor: pointer;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body><div id="app">
+  <div class="container">
+    <pre class="code" id="cookieStr">N/A</pre>
+    <div>Update at <span id="cookieTime"></span></div>
+    <div><span id="errorMsg"></span> <button id="syncBtn">Sync</button></div>
+  </div>
+
+  <div class="container">
+    <div class="item">
+      <label for="alistUrl">URL:</label>
+      <input type="url" id="alistUrl" placeholder="https://your-alist-backend.com">
+    </div>
+    <div class="item">
+      <label for="alistUsername">Username:</label>
+      <input type="text" id="alistUsername" placeholder="admin" value="admin">
+    </div>
+    <div class="item">
+      <label for="alistPassword">Password:</label>
+      <input type="password" id="alistPassword">
+    </div>
+    <button id="saveBtn">Save</button>
+    <div id="status" style="margin-top: 5px;"></div>
+  </div>
+</div>
+
+<script src="popup.js"></script>
+</body>
+
+</html>
