@@ -9,6 +9,7 @@ const readLocalStorage = async (keys) => {
 async function getTokenAndBase() {
   const { alistUrl, alistUsername, alistHash } = await readLocalStorage(['alistUrl', 'alistUsername', 'alistHash']);
   if (!alistUrl) {
+    setLastError("failed: no url");
     return [null, null];
   }
   const resp = await fetch(`${alistUrl}/api/auth/login/hash`, {
@@ -57,11 +58,11 @@ async function updateCookieToAlist(cookie) {
 }
 
 function interceptCookie() {
-  chrome.cookies.getAll({ domain: ".115.com" }, async cookies => {
+  chrome.cookies.getAll({ domain: ".115.com" }, cookies => {
     const lastInterceptedCookie = cookies.filter(x => x.domain == '.115.com').map(c => `${c.name}=${c.value}`).join("; ");
     const lastInterceptedTime = new Date().toLocaleString();
     chrome.storage.sync.set({ lastInterceptedCookie, lastInterceptedTime });
-    await updateCookieToAlist(lastInterceptedCookie);
+    updateCookieToAlist(lastInterceptedCookie);
   });
 }
 
