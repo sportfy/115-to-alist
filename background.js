@@ -12,7 +12,8 @@ async function getTokenAndBase() {
     setLastError("failed: no url");
     return [null, null];
   }
-  const resp = await fetch(`${alistUrl}/api/auth/login/hash`, {
+  const hashUrl = new URL('/api/auth/login/hash', alistUrl).href;
+  const resp = await fetch(hashUrl, {
     method: 'POST',
     body: `{"username":"${alistUsername}","password":"${alistHash}"}`,
     headers: {
@@ -32,7 +33,8 @@ async function updateCookieToAlist(cookie) {
   if (!token) {
     return;
   }
-  const resp = await fetch(`${url}/api/admin/storage/list`, {headers: {"authorization": token}});
+  const listUrl = new URL('/api/admin/storage/list', url).href;
+  const resp = await fetch(listUrl, {headers: {"authorization": token}});
   const obj = await resp.json();
   const item = obj.data.content.find(x => x.driver == '115 Cloud');
   if (!item) {
@@ -42,7 +44,8 @@ async function updateCookieToAlist(cookie) {
   let addition = JSON.parse(item.addition);
   addition.cookie = cookie;
   item.addition = JSON.stringify(addition);
-  const setResp = await fetch(`${url}/api/admin/storage/update`, {
+  const updateUrl = new URL('/api/admin/storage/update', url).href;
+  const setResp = await fetch(updateUrl, {
     method: 'POST',
     headers: { "authorization": token, 'Content-Type': 'application/json;charset=UTF-8' },
     body: JSON.stringify(item),

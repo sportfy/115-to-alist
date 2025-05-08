@@ -30,7 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const alistPassword = document.getElementById("alistPassword").value;
     const alistHash = await sha256(`${alistPassword}-https://github.com/alist-org/alist`);
 
-    fetch(`${alistUrl}/api/auth/login/hash`, {
+    const hashUrl = new URL('/api/auth/login/hash', alistUrl).href;
+    fetch(hashUrl, {
       method: 'POST',
       body: `{"username":"${alistUsername}","password":"${alistHash}"}`,
       headers: {
